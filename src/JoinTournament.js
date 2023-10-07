@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const ENDPOINT = "http://localhost:8000/api/join"
 
@@ -11,14 +11,22 @@ function JoinTournament() {
 
     const [teamName, setTeamName] = useState("");
     const [email, setEmail] = useState("");
+    const [tournamentKey, setTournamentKey] = useState("");
+
+    useEffect(() => {
+        const currentURL = window.location.pathname;
+        const parts = currentURL.split('/');
+        setTournamentKey(parts[parts.length - 1]);
+        console.log(tournamentKey);
+    }, []); // Use an empty dependency array to run this effect only once
 
     // Function to handle the POST request 
-
     const sendPostRequest = async () => {
         try {
             const response = await axios.post(ENDPOINT, {
+                "email": email,
                 "teamName": teamName,
-                "email": email
+                "tournamentKey": tournamentKey
             });
 
             // Handle the response data here 
@@ -38,9 +46,9 @@ function JoinTournament() {
             <Form>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Team name</Form.Label>
-                    <Form.Control type="text" />
+                    <Form.Control type="text" onChange={(e) => setTeamName(e.target.value)}/>
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="name@example.com" />
+                    <Form.Control type="email" placeholder="name@example.com" onChange={(e) => setEmail(e.target.value)} />
                 </Form.Group>
             </Form>
             <Button variant="primary" onClick={sendPostRequest}>Join</Button>

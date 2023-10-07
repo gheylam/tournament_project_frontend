@@ -12,7 +12,7 @@ const App = () => {
         <Route exact path="/" element={<Home />} />
         <Route path="/create-tournament" element={<CreateTournament />} />
         <Route path="/lobby/:key" element={<Lobby />} />
-        <Route path="/join" element={<JoinTournament />} />
+        <Route path="/join/:key" element={<JoinTournament />} />
         
       </Routes>
     </Router>
