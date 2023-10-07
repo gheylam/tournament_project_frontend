@@ -1,4 +1,6 @@
+import React from 'react';
 import './App.css';
+import {NewCar, NewGarage} from './Car.js';
 
 const myelement = (
   <table>
@@ -37,7 +39,7 @@ const myElement05 = (
 
 const myInput01 = (<input type="text" />);
 
-let x = 12; 
+let x = 12;
 const myIfElement = <h1>{(x) < 10 ? "Hello" : "Goodbye"}</h1>;
 
 function App() {
@@ -45,10 +47,22 @@ function App() {
     <div className="App">
       <h1>Hello World!</h1>
     </div>
-  ), myelement, myElement02, myElement03, myElement04, myElement05, myInput01, myIfElement];
+  ), 
+  myelement, 
+  myElement02, 
+  myElement03, 
+  myElement04, 
+  myElement05, 
+  myInput01, 
+  myIfElement, 
+  (<CarClassReact />), 
+  (<CarFunction color="orange"/>),
+  (<Garage />),
+  (<NewGarage />), 
+  (<NewCar />)];
 }
 
-class Car {
+class Car{
   constructor(name) {
     this.brand = name;
   }
@@ -56,6 +70,24 @@ class Car {
   present() {
     return 'I have a ' + this.brand;
   }
+}
+
+class CarClassReact extends React.Component {
+  render() {
+    return <h2>Hi, I am a Car!</h2>;
+  }
+}
+function CarFunction(props) {
+  return <h2>Hi, I am a {props.color} Car function!</h2>;
+}
+
+function Garage() {
+  return (
+    <>
+      <h1>Whoe lives in my butt butt</h1>
+      <CarFunction color="Orange"/> 
+    </>
+  )
 }
 
 const mycar = new Car("Ford");
