@@ -1,12 +1,18 @@
 import React from 'react';
-import './App.css';
-import {Title, CenterBox} from './pageCreate';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import Home from './Home';
+import CreateTournament from './CreateTournament';
 
-function App() {
-  return [
-  (<Title/>),
-  (<CenterBox/>)
-  ]
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/create-tournament" element={<CreateTournament />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
+
