@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Title, CenterBox} from './pageCreate';
+import {Title, CenterBox, SwitchExample} from './pageCreate';
 
 function App() {
   return [
@@ -10,7 +10,8 @@ function App() {
     </div>
   ),
   (<Title/>),
-  (<CenterBox/>)
+  (<CenterBox/>),
+  (<SwitchExample/>)
   ]
 }
 
