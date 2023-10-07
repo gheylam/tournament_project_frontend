@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './Home';
 import CreateTournament from './CreateTournament';
+import JoinTournament from './JoinTournament';
 
 const App = () => {
   return (
@@ -9,6 +10,7 @@ const App = () => {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/create-tournament" element={<CreateTournament />} />
+        <Route path="/join" element={<JoinTournament />} />
       </Routes>
     </Router>
   );
