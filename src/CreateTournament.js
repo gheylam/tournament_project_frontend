@@ -4,10 +4,15 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const ENDPOINT = "http://localhost:8000/api/create-tournament"
 
+
 function CreateTournament() {
+    const { key } = useParams();
+    const navigate = useNavigate();
+
     const [isChecked, setIsChecked] = useState(false);
     const [numOfTeams, setNumOfTeams] = useState(0);
     const [name, setName] = useState("");
@@ -20,13 +25,16 @@ function CreateTournament() {
 
     const sendPostRequest = async () => {
         try {
+            const randomKey = Math.floor(10000 + Math.random() * 90000).toString();
+
             const response = await axios.post(ENDPOINT, {
                 "name": name,
-                "number_of_teams": numOfTeams
+                "numberOfTeams": numOfTeams
             });
 
             // Handle the response data here
             console.log(response.data);
+            navigate("/lobby/" + response.data.generatedKey)
         } catch (error) {
             // Handle any errors that occurred during the request
             console.error('Error:', error);
