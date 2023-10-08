@@ -4,6 +4,7 @@ import Home from './Home';
 import CreateTournament from './CreateTournament';
 import OwnerLobby from './OwnerLobby';
 import JoinTournament from './JoinTournament';
+import JoinerLobby from './JoinerLobby'; 
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Route path="/create-tournament" element={<CreateTournament />} />
         <Route path="/owner-lobby/:key" element={<OwnerLobby />} />
         <Route path="/join/:key" element={<JoinTournament />} />
+        <Route path="/joiner-lobby/:key" element={<JoinerLobby />} />
       </Routes>
     </Router>
   );
