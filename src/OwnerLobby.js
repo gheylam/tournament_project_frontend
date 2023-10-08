@@ -6,8 +6,8 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 
-function Lobby() {
-    const [teamName, setTeamName] = useState("N/A");
+function OwnerLobby() {
+    const [tournamentName, setTournamentName] = useState("N/A");
     const currentURL = window.location.pathname; 
     const parts = currentURL.split('/'); 
     const tournamentKey = (parts[parts.length-1]);
@@ -19,13 +19,15 @@ function Lobby() {
         try {
             const response = await axios.get(GET_ENDPOINT);
             console.log(response.data);
-            setTeamName(response.data.name);
+            setTournamentName(response.data.name);
         } catch (error) {
             console.error('Error', error);
         }
     }
 
-    sendGetRequest();
+    useEffect(() => {
+        sendGetRequest();
+    }, []); // Use an empty dependency array to run this effect only once
 
     const handleCopyClick = () => {
         navigator.clipboard.writeText(joinLink);
@@ -34,11 +36,11 @@ function Lobby() {
     return (
         <div>
             <h1>Tournament Lobby</h1>
-            <h2>{teamName} Tournament</h2>
+            <h2>{tournamentName} Tournament </h2>
             <Form.Control type="text" defaultValue={joinLink} />
             <Button variant="primary" onClick={handleCopyClick}>Copy invite link</Button>
         </div>
     )
 }
 
-export default Lobby
+export default OwnerLobby

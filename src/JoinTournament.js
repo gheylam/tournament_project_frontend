@@ -12,13 +12,7 @@ function JoinTournament() {
     const [teamName, setTeamName] = useState("");
     const [email, setEmail] = useState("");
     const [tournamentKey, setTournamentKey] = useState("");
-
-    useEffect(() => {
-        const currentURL = window.location.pathname;
-        const parts = currentURL.split('/');
-        setTournamentKey(parts[parts.length - 1]);
-        console.log(tournamentKey);
-    }, []); // Use an empty dependency array to run this effect only once
+    const [tournamentName, setTournamentName] = useState("");
 
     // Function to handle the POST request 
     const sendPostRequest = async () => {
@@ -37,11 +31,35 @@ function JoinTournament() {
         };
     }
 
+    useEffect(() => {
+        const currentURL = window.location.pathname;
+        const parts = currentURL.split('/');
+        const key = parts[parts.length - 1];
+        setTournamentKey(key);
+        const GET_ENDPOINT = 'http://localhost:8000/api/tournaments/' + key;
+        console.log(GET_ENDPOINT);
+    
+        // Use an async function to make the GET request
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(GET_ENDPOINT);
+                console.log(response.data);
+                setTournamentName(response.data.name);
+            } catch (error) {
+                console.error('Error', error);
+            }
+        };
+    
+        fetchData(); // Call the async function to fetch data
+    
+    }, []); // Use an empty dependency array to run this effect only once
+    
+
     return (
         <div>
             <h1>Round Up - Join Tournament</h1>
             <h2>Signup for</h2>
-            <h2>Tournament name</h2>
+            <h2>{tournamentName}</h2>
 
             <Form>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
