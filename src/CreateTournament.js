@@ -25,8 +25,6 @@ function CreateTournament() {
 
     const sendPostRequest = async () => {
         try {
-            const randomKey = Math.floor(10000 + Math.random() * 90000).toString();
-
             const response = await axios.post(ENDPOINT, {
                 "name": name,
                 "numberOfTeams": numOfTeams
@@ -34,7 +32,7 @@ function CreateTournament() {
 
             // Handle the response data here
             console.log(response.data);
-            navigate("/lobby/" + response.data.generatedKey)
+            navigate("/owner-lobby/" + response.data.generatedKey)
         } catch (error) {
             // Handle any errors that occurred during the request
             console.error('Error:', error);

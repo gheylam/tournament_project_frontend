@@ -4,10 +4,13 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const ENDPOINT = "http://localhost:8000/api/join"
 
 function JoinTournament() {
+    const { key } = useParams();
+    const navigate = useNavigate();
 
     const [teamName, setTeamName] = useState("");
     const [email, setEmail] = useState("");
@@ -29,6 +32,11 @@ function JoinTournament() {
             // Handle any errors that occurred during the request
             console.error('Error:', error);
         };
+    }
+
+    const joinCallback = () => {
+        sendPostRequest(); 
+        navigate("/joiner-lobby/" + tournamentKey)
     }
 
     useEffect(() => {
@@ -69,7 +77,7 @@ function JoinTournament() {
                     <Form.Control type="email" placeholder="name@example.com" onChange={(e) => setEmail(e.target.value)} />
                 </Form.Group>
             </Form>
-            <Button variant="primary" onClick={sendPostRequest}>Join</Button>
+            <Button variant="primary" onClick={joinCallback}>Join</Button>
         </div >
 
     );
