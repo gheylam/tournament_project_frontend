@@ -18,6 +18,7 @@ function OwnerLobby() {
     const GET_ENDPOINT = 'http://localhost:8000/api/tournaments/' + tournamentKey;
     const GET_PARTICIPANT_ENDPOINT = 'http://localhost:8000/api/tournaments/' + tournamentKey + '/participants';
     const DELETE_PARTICIPANT_ENDPOINT = 'http://localhost:8000/api/tournaments/' + tournamentKey + '/participants/';
+    const GENERATE_ENDPOINT = 'http://localhost:8000/api/tournaments/' + tournamentKey + '/generate';
     const sendGetTournamentRequest = async () => {
         try {
             const response = await axios.get(GET_ENDPOINT);
@@ -45,6 +46,15 @@ function OwnerLobby() {
         }
     }
 
+    const sendPostGenerateMatches = async () => {
+        try {
+            const response = await axios.post(GENERATE_ENDPOINT);
+            console.log(response.data);
+        } catch (error) {
+            console.error('Error', error);
+        }
+    }
+
     useEffect(() => {
         sendGetTournamentRequest();
     }, []); // Use an empty dependency array to run this effect only once
@@ -55,6 +65,9 @@ function OwnerLobby() {
 
     const handleCopyClick = () => {
         navigator.clipboard.writeText(joinLink);
+    }
+    const handleGenerateClick = () => {
+        sendPostGenerateMatches();
     }
 
     const TableList = ({ data }) => {
@@ -89,6 +102,7 @@ function OwnerLobby() {
             <Form.Control type="text" defaultValue={joinLink} />
             <Button variant="primary" onClick={handleCopyClick}>Copy invite link</Button>
             <TableList data={participants} />
+            <Button variant="primary" onClick={handleGenerateClick}>Generate Matches</Button>
         </div>
     )
 }
